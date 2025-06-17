@@ -64,7 +64,10 @@ class UserController extends Controller
         $user->role = 'employee';
         $user->save();
 
-        return redirect('/pegawai');
+        return response()->json([
+            'status' => 'success',
+            'message' => 'User created successfully',
+        ]);
     }
 
     /**

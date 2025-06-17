@@ -220,6 +220,10 @@ class ConsignmentController extends Controller
         $consignment = Consignment::with(['store', 'product', 'user'])
             ->findOrFail($consignment_id);
 
+        if (!$consignment) {
+            return response()->json(['error' => 'Nota nggak nemu bos'], 404);
+        }
+
         $nota = [
             'nomor' => 'TRX-' . $consignment_id,
             'nama_pencetak' => Auth::user()->name,
@@ -245,8 +249,12 @@ class ConsignmentController extends Controller
         // dd($nota);
         // return view('transaksi.nota', ['nota' => $nota]);
 
-
-        $pdf = PDF::loadView('transaksi.nota', ['nota' => $nota]);
-        return $pdf->download('nota-' . $consignment_id . '.pdf');
+        try {
+            $pdf = PDF::loadView('nota', ['nota' => $nota]);
+            return $pdf->download('nota-' . $consignment_id . '.pdf');
+        } catch (\Exception $e) {
+            \Log::error('PDF Generation Error: ' . $e->getMessage());
+            return response()->json(['error' => 'PDF generation failed'], 500);
+        }
     }
 }
