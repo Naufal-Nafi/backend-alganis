@@ -15,11 +15,13 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie', 'consignment/print/*'],
+    'paths' => ['api/*', 'sanctum/csrf-cookie', 'consignment/print/*', 'expense/pdf/*'],
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => [
+        'https://frontend-alganis-production.up.railway.app',
+    ],
 
     'allowed_origins_patterns' => [],
 
