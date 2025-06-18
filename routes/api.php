@@ -75,7 +75,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/edit/{expense_id}', [ExpenseController::class, 'edit']);
         Route::put('/update/{expense_id}', [ExpenseController::class, 'update']);
         Route::delete('/delete/{expense_id}', [ExpenseController::class, 'destroy']);
-        Route::post('/pdf', [ExpenseController::class, 'download']);
+        Route::get('/pdf', [ExpenseController::class, 'download']);
     });
 
     Route::middleware('owner')->group(function () {

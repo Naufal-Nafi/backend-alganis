@@ -16,7 +16,7 @@ class ExpenseController extends Controller
         $data_keluar = Expense::with('user')
             ->orderBy('date', 'desc')
             ->paginate($perPage);
-            
+
         return response()->json([
             'data' => $data_keluar->items(),
             'pagination' => [
@@ -106,23 +106,21 @@ class ExpenseController extends Controller
     // fungsi untuk mengunduh laporan pengeluaran dalam format PDF berdasarkan rentang tanggal
     public function download(Request $request)
     {
-        $request->validate([
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-        ]);
+        $startDate = $request->query('start_date');
+        $endDate = $request->query('end_date');
 
-        $expenses = Expense::whereBetween('date', [$request->start_date, $request->end_date])
+        $expenses = Expense::whereBetween('date', [$startDate, $endDate])
             ->orderBy('date', 'asc')
             ->get();
 
         $data = [
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
+            'start_date' => $startDate,
+            'end_date' => $endDate,
             'expenses' => $expenses,
         ];
 
-        try {            
-            $pdf = PDF::loadView('barang.pdf', $data);
+        try {
+            $pdf = PDF::loadView('barangpdf', $data);
             return $pdf->download('pengeluaran_periode_' . $request->start_date . '_-_' . $request->end_date . '.pdf');
         } catch (\Exception $e) {
             \Log::error('PDF Generation Error: ' . $e->getMessage());
