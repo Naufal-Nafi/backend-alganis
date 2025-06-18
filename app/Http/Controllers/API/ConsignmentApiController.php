@@ -144,13 +144,7 @@ class ConsignmentApiController extends Controller
                 'message' => 'Consignment not found',
             ], Response::HTTP_NOT_FOUND);
         }
-
-        if ($consignment->user_id !== Auth::id() && Auth::user()->role !== 'owner') {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Unauthorized',
-            ], Response::HTTP_FORBIDDEN);
-        }
+        
 
         $validator = Validator::make($request->all(), [
             'product_name' => 'required|string|max:255',
