@@ -121,8 +121,12 @@ class ExpenseController extends Controller
             'expenses' => $expenses,
         ];
 
-        $pdf = PDF::loadView('barang.pdf', $data);
-
-        return $pdf->download('pengeluaran_periode_' . $request->start_date . '_-_' . $request->end_date . '.pdf');
+        try {            
+            $pdf = PDF::loadView('barang.pdf', $data);
+            return $pdf->download('pengeluaran_periode_' . $request->start_date . '_-_' . $request->end_date . '.pdf');
+        } catch (\Exception $e) {
+            \Log::error('PDF Generation Error: ' . $e->getMessage());
+            return response()->json(['error' => 'PDF generation failed'], 500);
+        }
     }
 }
