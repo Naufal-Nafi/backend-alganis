@@ -20,7 +20,7 @@ return [
     'allowed_methods' => ['*'],
 
     'allowed_origins' => [
-        'https://frontend-alganis-production.up.railway.app',
+        'http://127.0.0.1:8080',
     ],
 
     'allowed_origins_patterns' => [],

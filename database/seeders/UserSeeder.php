@@ -27,6 +27,14 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password1'),
             'role' => 'employee',
         ]);
+        
+        User::create([
+            'name' => 'random',
+            'email' => 'forrandompurposes2@gmail.com',
+            'password' => Hash::make('password1'),
+            'role' => 'employee',
+        ]);
+        
         for ($i = 0; $i < 10; $i++) {
             User::create([
                 'role' => 'employee',
