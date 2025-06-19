@@ -55,11 +55,6 @@ class User extends Authenticatable
     public function consignments()
     {
         return $this->hasMany(Consignment::class, 'user_id', 'user_id');
-    }
-
-        public function sendPasswordResetNotification($token)
-    {
-        $this->notify(new CustomResetPassword($token));
-    }
+    }        
 
 }
