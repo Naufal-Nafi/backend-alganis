@@ -21,7 +21,7 @@ Route::middleware('guest')->group(function () {
         Route::post('/', [AuthApiController::class, 'login']);
         Route::post('/register', [AuthApiController::class, 'register']);
         Route::post('/forgot-password', [PasswordResetLinkController::class, 'store']);
-        Route::post('/reset-password', [NewPasswordController::class, 'store'])->name('password.reset');
+        Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])->name('password.reset');
     });
 });
 
@@ -37,7 +37,7 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->user();
     });
 
-    Route::post('/logout',[AuthApiController::class, 'logout']);
+    Route::post('/logout', [AuthApiController::class, 'logout']);
 
     // CONSIGNMENT routes
     Route::prefix('consignment')->group(function () {
@@ -52,7 +52,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // DASHBOARD ROUTES    
     Route::prefix('dashboard')->group(function () {
-        
+
         Route::get('/', [ConsignmentController::class, 'mainpageIndex']);
         Route::get('/search', [ConsignmentApiController::class, 'mainpageSearch']);
 
@@ -70,7 +70,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     Route::prefix('expense')->group(function () {
-        Route::get('/',[ExpenseController::class, 'index']);
+        Route::get('/', [ExpenseController::class, 'index']);
         Route::post('/', [ExpenseController::class, 'store'])->name('barang.store');
         Route::get('/edit/{expense_id}', [ExpenseController::class, 'edit']);
         Route::put('/update/{expense_id}', [ExpenseController::class, 'update']);
