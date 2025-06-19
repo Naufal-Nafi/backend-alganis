@@ -21,7 +21,7 @@ Route::middleware('guest')->group(function () {
         Route::post('/', [AuthApiController::class, 'login']);
         Route::post('/register', [AuthApiController::class, 'register']);
         Route::post('/forgot-password', [PasswordResetLinkController::class, 'store']);
-        Route::post('reset-password', [NewPasswordController::class, 'store']);
+        Route::post('/reset-password', [NewPasswordController::class, 'store']);
     });
 });
 
