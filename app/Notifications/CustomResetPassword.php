@@ -3,7 +3,7 @@ namespace App\Notifications;
 
 use Illuminate\Auth\Notifications\ResetPassword;
 
-class CustomResetPasswor extends ResetPassword
+class CustomResetPassword extends ResetPassword
 {
     protected function resetUrl($notifiable)
     {
